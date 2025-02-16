@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Time Series Analytics Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Time Series Analytics Dashboard</h1>
+    <div class="tabs">
+        <button class="tablink active" onclick="openTab(event, 'timeseries')">Time Series</button>
+        <button class="tablink" onclick="openTab(event, 'textSearch')">Text Search</button>
+        <button class="tablink" onclick="openTab(event, 'geospatial')">Geospatial Query</button>
+    </div>
+    <div id="timeseries" class="tabcontent" style="display: block;">
+        <form id="analyticsForm" class="controls">
+            <div class="control-group">
+                <label for="field">Select Field:</label>
+                <select id="field" required>
+                    <option value="field1">Temperature</option>
+                    <option value="field2">Humidity</option>
+                    <option value="field3">CO2 Levels</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" required>
+                <span class="error-message" id="startDateError"></span>
+            </div>
+            <div class="control-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" required>
+                <span class="error-message" id="endDateError"></span>
+            </div>
+            <!-- Fix the button HTML structure -->
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span id="buttonText">Analyze Data</span>
+                <span class="spinner" id="loadingSpinner"></span>
+            </button>
+        </form>
+
+        <div class="charts">
+            <div class="chart-container">
+                <canvas id="timeseriesChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2>Statistical Metrics</h2>
+                <div class="metrics">
+                    <div class="metric-card">
+                        <div class="metric-label">Average</div>
+                        <div class="metric-value" id="avgValue">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Standard Deviation</div>
+                        <div class="metric-value" id="stdDevValue">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Minimum</div>
+                        <div class="metric-value" id="minValue">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Maximum</div>
+                        <div class="metric-value" id="maxValue">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="textSearch" class="tabcontent">
+    <form id="textSearchForm" class="controls">
+        <div class="control-group">
+            <label for="searchQuery">Search Query:</label>
+            <input type="text" id="searchQuery" placeholder="Enter keyword..." required/>
+        </div>
+        <button type="submit" class="submit-btn" id="searchBtn">
+            <span id="searchButtonText">Search</span>
+            <span class="spinner" id="searchSpinner"></span>
+        </button>
+    </form>
+    <div class="results-container">
+        <h2>Search Results</h2>
+        <ul id="searchResults"></ul>
+    </div>
+</div>
+
+<div id="geospatial" class="tabcontent">
+    <form id="geospatialForm" class="controls">
+        <div class="control-group">
+            <label for="latitude">Latitude:</label>
+            <input type="number" step="any" id="latitude" placeholder="Enter latitude" required/>
+        </div>
+        <div class="control-group">
+            <label for="longitude">Longitude:</label>
+            <input type="number" step="any" id="longitude" placeholder="Enter longitude" required/>
+        </div>
+        <div class="control-group">
+            <label for="maxDistance">Max Distance (meters):</label>
+            <input type="number" id="maxDistance" placeholder="5000" required/>
+        </div>
+        <button type="submit" class="submit-btn" id="geoBtn">
+            <span id="geoButtonText">Find Nearby</span>
+            <span class="spinner" id="geoSpinner"></span>
+        </button>
+    </form>
+    <div class="results-container">
+        <h2>Nearby Measurements</h2>
+        <ul id="geoResults"></ul>
+    </div>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
